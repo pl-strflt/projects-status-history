@@ -1,0 +1,30 @@
+name: Update Status History (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      owner:
+        description: Either the org name or the user name
+        required: true
+        type: string
+      project_name:
+        description: The name of the project
+        required: true
+        type: string
+    secrets:
+      token:
+        description: GITHUB_TOKEN
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    name: Update status history in the project
+    env:
+      GITHUB_TOKEN: ${{ secrets.token }}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: galargh/projects-status-history
+    - run: ./.github/scripts/update.sh '${{ inputs.owner }}' '${{ inputs.project_name }}'
+      shell: bash

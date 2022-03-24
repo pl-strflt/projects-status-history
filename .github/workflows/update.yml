@@ -1,0 +1,22 @@
+name: Update Status History
+
+on:
+  workflow_dispatch:
+    inputs:
+      owner:
+        description: Either the org name or the user name
+        required: true
+        type: string
+      project_name:
+        description: The name of the project
+        required: true
+        type: string
+
+jobs:
+  update:
+    uses: galargh/projects-status-history/.github/workflows/update_reusable.yml@main
+    with:
+      owner: ${{ github.event.inputs.owner }}
+      project_name: ${{ github.event.inputs.project_name }}
+    secrets:
+      token: ${{ secrets.UPDATE_TOKEN }}
