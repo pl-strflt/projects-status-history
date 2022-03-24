@@ -1,0 +1,14 @@
+name: Update Status History
+description: Update Status History
+inputs:
+  owner:
+    description: Either the org name or the user name
+    required: true
+  project_name:
+    description: The name of the project
+    required: true
+runs:
+  using: composite
+  steps:
+    - run: ${{ github.action_path	}}/.github/scripts/update.sh '${{ inputs.owner }}' '${{ inputs.project_name }}'
+      shell: bash

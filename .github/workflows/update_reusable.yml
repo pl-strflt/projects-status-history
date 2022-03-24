@@ -23,8 +23,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.token }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: galargh/projects-status-history@main
       with:
-        repository: galargh/projects-status-history
-    - run: ./.github/scripts/update.sh '${{ inputs.owner }}' '${{ inputs.project_name }}'
-      shell: bash
+        owner: ${{ inputs.owner }}
+        project_name: ${{ inputs.project_name }}
