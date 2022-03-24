@@ -31,7 +31,7 @@ project="$(gh api graphql -f query='query($login: String!, $project_name: String
             settings
           }
         }
-        items(first: 1, after: $endCursor) {
+        items(first: 100, after: $endCursor) {
           pageInfo {
             hasNextPage
             endCursor
