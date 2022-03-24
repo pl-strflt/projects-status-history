@@ -38,6 +38,7 @@ project="$(gh api graphql -f query='query($login: String!, $project_name: String
           }
           nodes {
             id
+            title
             fieldValues(first: 100) {
               nodes {
                 value
@@ -82,7 +83,10 @@ while read project_item_id; do
   echo "project_item_id=${project_item_id}"
   project_item="$(jq -c '.items.nodes | map(select(.id == $id)) | .[0]' --arg id "${project_item_id}" <<< "${project}")"
   echo "project_item=$(jq -r '.id' <<< "$project_item")"
-  echo "$project_item"
+  if [[ "$(jq -r '.title' <<< "$project_item")" == "You can't see this item" ]]; then
+    echo "::warning title=Inaccessible project item::The provided GitHub token cannot update the item with ID ${project_item_id}"
+    continue
+  fi
   project_item_status_history_field_value="$(jq -r '.fieldValues.nodes | map(select(.projectField.id == $id)) | .[0].value // "[]"' --arg id "${project_status_history_field_id}" <<< "${project_item}")"
   echo "project_item_status_history_field_value=${project_item_status_history_field_value}"
   project_item_status_field_value="$(jq -r '.fieldValues.nodes | map(select(.projectField.id == $id)) | .[0].value // ""' --arg id "${project_status_field_id}" <<< "${project_item}")"
