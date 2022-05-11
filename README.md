@@ -3,6 +3,7 @@
 The workflow available in this repository help maintaining the following fields on a GitHub project:
 - `Status History`: a list of past statuses an item was assigne
 - `Status Timestamp`: a timestamp from when the last `Status` change was performed
+- `Status Date`: a date when the last `Status` change was performed
 
 I advise GitHub project admins to set up the update workflow to run on schedule. Personally, I have it set up to run every hour but the frequency should be adjusted according to the granularity of the updates the admins care about.
 
@@ -13,15 +14,15 @@ I advise GitHub project admins to set up the update workflow to run on schedule.
 You need to create a GitHub token with:
 - `admin:org` permission for writing to the project
 
-### Project Status History and Status Timestamp Fields
+### Project Status History, Timetamp and Date Fields
 
 Unfortunately, it is not yet possible to automate creation of the project fields.
 
-For `Status History` and `Status Timestamp` as `NAME`:
+For `Status History`, `Status Timestamp` and `Status Date` as `NAME`:
 1. Navigate to your project.
 1. Click `➕ New Field`.
 1. Name the field `NAME`.
-1. Set the type to `🔤 Text`.
+1. Set the type to `📅 Date` for `NAME` = `Status Date` and to `🔤 Text` otherwise.
 1. Click `Save`.
 
 ## How to update Status History?

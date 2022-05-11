@@ -9,8 +9,10 @@ owner="$1"
 echo "owner=${owner}"
 project_name="$2"
 echo "project_name=${project_name}"
-timestamp="${3:-$(date -u +"%Y-%m-%d %H:%M")}"
+timestamp="$(date -u +"%Y-%m-%d %H:%M")"
 echo "timestamp=${timestamp}"
+date="$(date -u +"%d/%m/%Y")"
+echo "date=${date}"
 echo "::endgroup::"
 
 echo "::group::Checking the type of the owner"
@@ -73,6 +75,11 @@ project_status_timestamp_field="$(jq -c '.fields.nodes | map(select(.name == "St
 echo "project_status_timestamp_field=$(jq -r '.id' <<< "${project_status_timestamp_field}")"
 project_status_timestamp_field_id="$(jq -r '.id' <<< "${project_status_timestamp_field}")"
 echo "project_status_timestamp_field_id=${project_status_timestamp_field_id}"
+project_status_date_field="$(jq -c '.fields.nodes | map(select(.name == "Status Date")) | .[0]' <<< "${project}")"
+echo "project_status_date_field=$(jq -r '.id' <<< "${project_status_date_field}")"
+project_status_date_field_id="$(jq -r '.id' <<< "${project_status_date_field}")"
+echo "project_status_date_field_id=${project_status_date_field_id}"
+
 echo "::endgroup::"
 
 echo "::group::Processing project items"
@@ -122,5 +129,17 @@ while read project_item_id; do
       }
     }
   }' -f project_id="${project_id}" -f project_item_id="${project_item_id}" -f project_status_timestamp_field_id="${project_status_timestamp_field_id}" -f timestamp="${timestamp}"
+  > /dev/null gh api graphql -f query='mutation($project_id: ID!, $project_item_id: ID!, $project_status_date_field_id: ID!, $date: String!) {
+    updateProjectNextItemField(input: {
+      projectId: $project_id,
+      itemId: $project_item_id,
+      fieldId: $project_status_date_field_id,
+      value: $date,
+    }) {
+      projectNextItem {
+        id
+      }
+    }
+  }' -f project_id="${project_id}" -f project_item_id="${project_item_id}" -f project_status_date_field_id="${project_status_date_field_id}" -f date="${date}"
 done <<< "$(jq -r '.items.nodes[].id' <<< "$project")"
 echo "::endgroup"
