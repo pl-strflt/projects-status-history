@@ -7,13 +7,8 @@ inputs:
   project_name:
     description: The name of the project
     required: true
-  token:
-    description: GITHUB_TOKEN
-    required: true
 runs:
   using: composite
   steps:
     - run: ${{ github.action_path }}/.github/scripts/update.sh '${{ inputs.owner }}' '${{ inputs.project_name }}'
       shell: bash
-      env:
-        GITHUB_TOKEN: ${{ inputs.token }}
