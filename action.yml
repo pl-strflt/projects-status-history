@@ -10,5 +10,9 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: ${{ github.action_path }}/.github/scripts/update.sh '${{ inputs.owner }}' '${{ inputs.project_name }}'
+    - env:
+        OWNER: ${{ inputs.owner }}
+        PROJECT_NAME: ${{ inputs.project_name }}
+      run: .github/scripts/update.sh "${OWNER}" "${PROJECT_NAME}"
       shell: bash
+      working-directory: ${{ github.action_path }}

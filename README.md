@@ -37,7 +37,7 @@ Both methods expect the following inputs:
 
 1. Install [GitHub CLI](https://cli.github.com/).
 1. [Authenticate with GitHub](https://cli.github.com/manual/gh_auth_login) by running `gh auth login` (e.g. with the `GITHUB_TOKEN` you created).
-1. Clone this repository  by running `gh repo clone galargh/projects-status-history`.
+1. Clone this repository  by running `gh repo clone pl-strflt/projects-status-history`.
 1. Perform the update by running `./projects-status-history/.github/scripts/update.sh 'OWNER' 'PROJECT_NAME'`.
 
 ### GitHub Actions
@@ -50,7 +50,7 @@ on:
     - cron:  '15 * * * *'
 jobs:
   update:
-    uses: galargh/projects-status-history/.github/workflows/update_reusable.yml@main
+    uses: pl-strflt/projects-status-history/.github/workflows/update_reusable.yml@main
     with:
       owner: OWNER
       project_name: PROJECT_NAME

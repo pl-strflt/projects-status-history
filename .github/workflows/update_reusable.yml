@@ -23,7 +23,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.token }}
     steps:
-    - uses: galargh/projects-status-history@main
+    - uses: pl-strflt/projects-status-history@main
       with:
         owner: ${{ inputs.owner }}
         project_name: ${{ inputs.project_name }}

@@ -14,7 +14,7 @@ on:
 
 jobs:
   update:
-    uses: galargh/projects-status-history/.github/workflows/update_reusable.yml@main
+    uses: pl-strflt/projects-status-history/.github/workflows/update_reusable.yml@main
     with:
       owner: ${{ github.event.inputs.owner }}
       project_name: ${{ github.event.inputs.project_name }}
