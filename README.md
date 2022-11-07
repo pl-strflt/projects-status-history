@@ -1,3 +1,5 @@
+❗ The project is now deprecated as it uses [deprecated ProjectNext API](https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/). Its' functionality was ported to a [TS action](https://github.com/galargh/.github/blob/d3061a425cd373878e4f0320b344671955aef3c8/scripts/src/actions/shared/update-status-history.ts).
+
 # What is Status History?
 
 The workflow available in this repository help maintaining the following fields on a GitHub project:
